@@ -27,8 +27,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: AndreasAugustin/actions-template-sync@v2
         with:
-          # TEMPLATE: replace {{ORG}} with the org/user that owns the template repo.
-          source_repo_path: "{{ORG}}/ai-dev-foundation"
+          # This repo syncs from ai-dev-foundation (its direct parent). Downstream repos
+          # created from THIS template must repoint this to Yukihide-Mitsuoka/nextjs-saas-template.
+          source_repo_path: "Yukihide-Mitsuoka/ai-dev-foundation"
           upstream_branch: main
           pr_title: "build: sync with ai-dev-foundation template"
           pr_labels: "type:ci,type:dependencies"

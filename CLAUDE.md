@@ -16,8 +16,8 @@ conflict, follow the authority order in [.ai/README.md](.ai/README.md)
 | Field | Value |
 |-------|-------|
 | Project | {{PROJECT_NAME}} — see [.ai/mission.md](.ai/mission.md) |
-| Stack | {{STACK}} |
-| Architecture | Modular monolith, Clean Architecture, DDD — [.ai/architecture.md](.ai/architecture.md) |
+| Stack | Next.js (App Router) + TypeScript + Prisma/PostgreSQL(RLS) + Clerk + Stripe; deploys to Cloud Run via [gcp-cicd-workflows](https://github.com/Yukihide-Mitsuoka/gcp-cicd-workflows) `@v1` |
+| Architecture | Modular monolith, Clean Architecture, DDD — [.ai/architecture.md](.ai/architecture.md); one SaaS feature = one `src/modules/<feature>/` bounded context; `src/app/` stays a thin routing shell |
 | Branching | GitHub Flow; `main` always releasable |
 | Versioning | SemVer via Conventional Commits (automated) |
 

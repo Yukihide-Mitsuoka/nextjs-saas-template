@@ -1,59 +1,63 @@
-# ai-dev-foundation
+# nextjs-saas-template
 
-**AI-native development foundation** — a template repository for projects where AI
-agents (Claude Code, ChatGPT, Gemini, Codex, ...) are the primary developers and humans
-direct, decide, and review.
+**Production-ready SaaS starter on the ai-dev-foundation base** — a template repository
+for B2B/B2C SaaS where AI agents are the primary developers. It layers a Next.js SaaS
+foundation (multi-tenant PostgreSQL RLS, org-scoped RBAC, Clerk auth, Stripe billing,
+Cloud Run delivery) on top of everything
+[ai-dev-foundation](https://github.com/Yukihide-Mitsuoka/ai-dev-foundation) provides
+(rules, guardrails, skills, hooks, CI).
 
 > **AI agents:** stop reading this file. Your entry point is [CLAUDE.md](CLAUDE.md)
 > (Claude Code) or [AGENTS.md](AGENTS.md) (everyone else).
 
-## What this template provides
+## Position in the template ecosystem
 
-| Layer | Location | Purpose |
-|-------|----------|---------|
-| Rules (single source of truth) | [`.ai/`](.ai/) | Guardrails, security, architecture, coding, testing, release, docs, review — every rule has a stable ID (GR-010, SEC-020, ...) |
-| Agent entry points | [`CLAUDE.md`](CLAUDE.md), [`AGENTS.md`](AGENTS.md) | Operating manual + task routing table |
-| Task playbooks | [`.skills/`](.skills/) | 10 vendor-neutral skills: requirements, feature, bugfix, refactor, architecture, test, security, documentation, review, release — also exposed as native Claude Code skills under `.claude/skills/` |
-| Enforcement L1 | [`.claude/`](.claude/) | Claude Code hooks (command guard + auto format/lint), a read-only command allow-list, native skill wrappers, and a read-only `code-reviewer` subagent |
-| Enforcement L2 | [`.pre-commit-config.yaml`](.pre-commit-config.yaml) | Any committer: secret scan, branch guard, lint, unit tests |
-| Enforcement L3 | [`.github/workflows/`](.github/workflows/) | CI, CodeQL, secrets/deps/license scan, container, IaC, DAST, Scorecard, release+SBOM |
-| Stable command interface | [`Makefile`](Makefile) | `make test` etc. — the only entry points automation uses |
-| Stack profiles | [`profiles/`](profiles/) | Reference Makefile implementations per stack + the canonical target contract |
-| Decisions | [`docs/adr/`](docs/adr/) | ADRs + decision log |
-| Knowledge | [`docs/`](docs/) | Architecture, domain, API, deployment, operations, runbook, troubleshooting, roadmap, glossary |
-| GitHub scaffolding | [`.github/`](.github/) | Issue forms, PR template, CODEOWNERS, labels-as-code, Dependabot; plus `renovate.json` |
-| Governance bootstrap | [`scripts/setup-github.sh`](scripts/setup-github.sh) | One command applies branch protection, secret scanning, merge policy via `gh` |
-| Update distribution | [`template-sync.yml`](.github/workflows/template-sync.yml) + [`.templatesyncignore`](.templatesyncignore) | Foundation updates reach downstream repos as PRs |
+```
+ai-dev-foundation ──sync──▶ nextjs-saas-template ──sync──▶ your SaaS
+   (base template)              (this repo)                   │
+                                                              │ uses @v1 / ?ref=vX.Y.Z
+                                    gcp-cicd-workflows ◀──────┤  (deploy pipeline)
+                                    terraform-gcp-modules ◀───┘  (github-oidc, infra)
+```
+
+| Decision | Rule |
+|----------|------|
+| Building a SaaS app? | "Use this template" **here** |
+| Pure infrastructure project? | Use [terraform-gcp-template](https://github.com/Yukihide-Mitsuoka/terraform-gcp-template) |
+| Neither (plain project)? | Use [ai-dev-foundation](https://github.com/Yukihide-Mitsuoka/ai-dev-foundation) directly |
+| Deploy pipeline | Referenced from [gcp-cicd-workflows](https://github.com/Yukihide-Mitsuoka/gcp-cicd-workflows) `@v1` — never copied |
+| Base updates | Arrive as sync PRs (template-sync, manual trigger any time); downstream repoints its sync source to THIS repo |
+
+## Stack and architecture decisions (fixed by design)
+
+| Concern | Decision |
+|---------|----------|
+| Framework | Next.js App Router (Server Actions + Route Handlers), TypeScript strict, Tailwind CSS |
+| Data | Prisma + PostgreSQL (Cloud SQL); **shared schema + `organization_id` + Row Level Security** enforced in the DB, injected per-request via a `$extends` client |
+| Auth | Clerk (Organizations) with webhook-driven sync into the app DB |
+| Authorization | Fixed permission vocabulary + org-defined custom roles; `hasPermission()` guards **every** layer (middleware, Server Action, Route Handler, service, repository) |
+| Billing | Stripe; Organization = Customer, seat + tier, `billing:*` permissions gate it |
+| Layout | ARC-001: one feature = one `src/modules/<feature>/{domain,application,infrastructure,interface}` bounded context + `MODULE.md`; `src/shared/` for cross-cutting only; `src/app/` is a thin routing shell |
+| Delivery | Container (standalone output) → Cloud Run canary via reusable workflows; OIDC keyless auth via `terraform-gcp-modules//modules/github-oidc` |
+
+Two DB roles are mandatory: the app role (RLS-enforced) and a privileged role used only by
+migrations and the Clerk webhook sync (which must write across tenant boundaries).
 
 ## Using this template
 
-1. **Create the repo** from this template (GitHub → "Use this template").
-2. **Replace placeholders**: search for `{{` — mission, stack, CODEOWNERS teams, issue
-   config URLs.
-3. **Wire the Makefile**: copy the closest [`profiles/`](profiles/) Makefile to the
-   root (or implement `setup/format/lint/test/build` yourself) — everything else
-   (hooks, CI) starts working automatically.
-4. **Configure GitHub** (one-time): run `bash scripts/setup-github.sh` (requires
-   `gh auth login` with admin) — it applies branch protection, secret scanning + push
-   protection, private vulnerability reporting, squash-only merges, and prints the few
-   remaining manual steps (Renovate app, Discussion categories, CodeQL languages,
-   optional AI-review/DAST variables).
-5. **Install local gates**: `make setup && pre-commit install --hook-type pre-commit
-   --hook-type pre-push`.
-6. **Point your agent at it**: open the repo with Claude Code (reads `CLAUDE.md`
-   automatically) or tell any other agent to read `AGENTS.md`. Assign it an issue.
-
-Full walkthrough (new machine, different account, gotchas): [docs/usage.md](docs/usage.md).
-
-## Design principles
-
-AI First · Secure by Default · Least Privilege · Defense in Depth · Everything as Code
-(docs, policy, infra) · Convention over Configuration · Clean Architecture · DDD ·
-SOLID · Twelve-Factor · GitHub Flow · Conventional Commits · SemVer.
-
-Why it's built this way: [docs/adr/](docs/adr/). How agents behave here:
-[.ai/README.md](.ai/README.md).
+1. **Create the repo**: GitHub → "Use this template".
+2. **Repoint template sync**: in `.github/workflows/template-sync.yml`, set
+   `source_repo_path` to `Yukihide-Mitsuoka/nextjs-saas-template`; set repo variable
+   `TEMPLATE_SYNC_ENABLED=true`.
+3. **Replace placeholders**: `grep -rn "{{" . --exclude-dir=.git --exclude-dir=node_modules`.
+4. **Configure services**: Clerk app + webhook endpoint, Stripe account, Cloud SQL
+   instance; fill `.env` from [.env.example](.env.example).
+5. **Install gates**: `make setup`; verify with `make doctor && make lint && make test`.
+6. **Wire deploy**: provision `github-oidc` (see
+   [gcp-cicd-workflows setup](https://github.com/Yukihide-Mitsuoka/gcp-cicd-workflows#setup-once-per-consumer-repo)),
+   copy its example callers.
+7. Point your agent at the repo and assign it an issue.
 
 ## License
 
-<!-- TEMPLATE: choose a license and add LICENSE file. -->
+MIT — see [LICENSE](LICENSE).

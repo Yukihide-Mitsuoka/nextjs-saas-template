@@ -19,7 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # TEMPLATE: add your runtime setup action here (setup-node / setup-python / setup-go)
+      # Runtime setup for this stack (corepack first so setup-node can cache pnpm)
+      - run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
       - run: make setup
       - run: make lint
 
@@ -27,6 +32,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
       - run: make setup
       - run: make coverage
       - name: Upload coverage artifact
@@ -40,8 +50,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
       - run: make setup
       - run: make build
+        env:
+          # Build-time placeholder only (pk_test of "clerk.example.com$") — real keys
+          # come from the runtime environment, never from CI (GR-001).
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsuZXhhbXBsZS5jb20k
 
   doctor:
     # Foundation self-check: metadata invariants (YAML frontmatter intact, no collapsed

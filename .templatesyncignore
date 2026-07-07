@@ -12,3 +12,20 @@ Makefile
 .ai/decision-log.md
 .github/CODEOWNERS
 .templatesyncignore
+
+# nextjs-saas-template additions: never let the ai-dev-foundation sync touch the
+# application layer this template adds on top of the foundation.
+prisma/**
+package.json
+pnpm-lock.yaml
+tsconfig.json
+next.config.ts
+postcss.config.mjs
+eslint.config.mjs
+vitest.config.ts
+.prettierrc.json
+.prettierignore
+# ci.yml carries this stack's runtime setup (setup-node/pnpm); template-sync.yml carries
+# this repo's sync source. Port base improvements manually when a sync PR diffs here.
+.github/workflows/ci.yml
+.github/workflows/template-sync.yml

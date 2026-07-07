@@ -1,0 +1,17 @@
+# Division of labor: prettier governs application code (ts/tsx/css/json). Markdown and
+# YAML keep the foundation's existing conventions (mdformat / hand-maintained workflows).
+*.md
+*.yml
+*.yaml
+.github/
+.ai/
+.skills/
+.claude/
+docs/
+profiles/
+scripts/
+prisma/migrations/
+pnpm-lock.yaml
+.next/
+coverage/
+dist/
