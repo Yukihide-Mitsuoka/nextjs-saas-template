@@ -1,5 +1,12 @@
-// Data model lands with the SaaS foundation phase (schema + RLS migration reviewed as
-// one PR). This bootstrap schema only wires the toolchain (prisma generate in `make setup`).
+// Multi-tenant SaaS schema — shared schema + organizationId + PostgreSQL RLS.
+//
+// Tenancy rules (enforced by the RLS migration in prisma/migrations/*_rls):
+// - Every tenant-owned table carries organizationId; RLS restricts rows to
+//   current_setting('app.current_org_id') set per-request by src/shared/lib/prisma.ts.
+// - User and Permission are global (not tenant-owned): users exist across orgs (synced
+//   from Clerk); Permission mirrors the fixed vocabulary in src/shared/auth/permissions.ts.
+// - Two DB roles: the app role (RLS enforced) and a privileged role (BYPASSRLS) used
+//   only by migrations and the Clerk webhook sync (cross-tenant writes).
 
 generator client {
   provider = "prisma-client-js"
@@ -9,4 +16,162 @@ datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_DATABASE_URL")
+}
+
+// --- Global (not tenant-scoped) -------------------------------------------------------
+
+model User {
+  id          String   @id @default(cuid())
+  clerkUserId String   @unique
+  email       String   @unique
+  name        String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  memberships Membership[]
+  auditLogs   AuditLog[]
+}
+
+/// Fixed permission vocabulary — rows mirror PERMISSIONS in src/shared/auth/permissions.ts
+/// (seeded by migration; a unit test pins code and table in sync). Global read-only.
+model Permission {
+  code        String @id // e.g. "billing:write"
+  description String
+
+  rolePermissions RolePermission[]
+}
+
+// --- Tenant root ------------------------------------------------------------------------
+
+model Organization {
+  id         String   @id @default(cuid())
+  clerkOrgId String   @unique
+  name       String
+  slug       String   @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  memberships  Membership[]
+  workspaces   Workspace[]
+  roles        Role[]
+  auditLogs    AuditLog[]
+  subscription Subscription?
+}
+
+// --- Tenant-owned (all RLS-protected via organizationId) --------------------------------
+
+model Workspace {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  slug           String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, slug])
+  @@index([organizationId])
+}
+
+/// Org-defined roles. isSystem marks the seeded defaults (Owner/Admin/Manager/Member/
+/// Billing) which cannot be edited or deleted; organizations may add custom roles freely.
+model Role {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  isSystem       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  permissions  RolePermission[]
+  memberships  Membership[]
+
+  @@unique([organizationId, name])
+  @@index([organizationId])
+}
+
+/// organizationId is denormalized from Role so RLS applies directly (no policy subquery).
+model RolePermission {
+  id             String @id @default(cuid())
+  organizationId String
+  roleId         String
+  permissionCode String
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionCode], references: [code], onDelete: Restrict)
+
+  @@unique([roleId, permissionCode])
+  @@index([organizationId])
+  @@index([permissionCode])
+}
+
+model Membership {
+  id             String           @id @default(cuid())
+  organizationId String
+  userId         String
+  roleId         String
+  status         MembershipStatus @default(ACTIVE)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role         Role         @relation(fields: [roleId], references: [id], onDelete: Restrict)
+
+  @@unique([organizationId, userId])
+  @@index([userId])
+  @@index([roleId])
+}
+
+/// Append-only. actorUserId is null for system actions (webhooks, jobs).
+model AuditLog {
+  id             String   @id @default(cuid())
+  organizationId String
+  actorUserId    String?
+  action         String // e.g. "member.role_changed"
+  targetType     String?
+  targetId       String?
+  metadata       Json     @default("{}")
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  actor        User?        @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@index([actorUserId])
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  organizationId       String             @unique
+  stripeCustomerId     String             @unique
+  stripeSubscriptionId String?            @unique
+  status               SubscriptionStatus @default(TRIALING)
+  tier                 String             @default("free")
+  seats                Int                @default(1)
+  currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean            @default(false)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INVITED
+  SUSPENDED
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  INCOMPLETE
 }
