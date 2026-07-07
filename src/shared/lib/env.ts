@@ -18,6 +18,9 @@ const envSchema = z.object({
   CLERK_WEBHOOK_SIGNING_SECRET: z.string().min(1).optional(),
   STRIPE_SECRET_KEY: z.string().min(1).optional(),
   STRIPE_WEBHOOK_SIGNING_SECRET: z.string().min(1).optional(),
+  CLOUD_TASKS_QUEUE: z.string().min(1).optional(),
+  CLOUD_TASKS_INVOKER_SA: z.string().email().optional(),
+  SLACK_WEBHOOK_URL: z.string().url().optional(),
 });
 
 export type Env = z.infer<typeof envSchema>;

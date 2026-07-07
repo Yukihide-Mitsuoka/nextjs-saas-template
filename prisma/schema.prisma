@@ -170,6 +170,15 @@ model StripeEvent {
   processedAt DateTime @default(now())
 }
 
+/// Rate-limit sliding-window store — global infra table (opaque keys, no RLS).
+model RateLimitEvent {
+  id  BigInt   @id @default(autoincrement())
+  key String
+  at  DateTime @default(now())
+
+  @@index([key, at])
+}
+
 enum MembershipStatus {
   ACTIVE
   INVITED
