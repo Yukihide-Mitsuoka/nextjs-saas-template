@@ -162,6 +162,14 @@ model Subscription {
   @@index([status])
 }
 
+/// Stripe webhook idempotency ledger — one row per processed event id. Global (an event
+/// arrives before its org is known); admin-client only, invisible to the app role.
+model StripeEvent {
+  id          String   @id // Stripe event id (evt_...)
+  type        String
+  processedAt DateTime @default(now())
+}
+
 enum MembershipStatus {
   ACTIVE
   INVITED
