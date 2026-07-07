@@ -35,6 +35,10 @@ function makeAdminClient(): PrismaClient {
 /** App-role client (RLS applies, but no org context — use dbForOrg instead). */
 const basePrisma: PrismaClient = (globalForPrisma.basePrisma ??= makeBaseClient());
 
+/** App-role client for GLOBAL (non-RLS) infra tables only — RateLimitEvent and reads of
+ *  User/Permission. Tenant tables through this client return zero rows by design. */
+export const appDb: PrismaClient = basePrisma;
+
 /** Privileged client — migrations and cross-tenant sync ONLY. */
 export const adminDb: PrismaClient = (globalForPrisma.adminPrisma ??= makeAdminClient());
 
