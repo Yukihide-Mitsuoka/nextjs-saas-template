@@ -18,6 +18,7 @@ authorization decisions (that is `src/shared/auth`), sessions/UI (Clerk), or bil
 | `syncFromClerk(event)` | application | Apply one verified Clerk webhook event to the app DB |
 | `DEFAULT_ROLES` | application | The system role set (Owner/Admin/Manager/Member/Billing) and their permissions |
 | `POST /api/webhooks/clerk` | interface | Verified (svix) webhook endpoint delegating to `syncFromClerk` |
+| `resolveActor(clerkUserId, clerkOrgId)` | application | Resolve a Clerk session to app-DB ids — this module owns the Clerk↔app id mapping (read-only privileged lookup) |
 
 ## Events
 
