@@ -84,10 +84,9 @@ make setup                             # 依存導入 + pre-commit フック
 Claude Code でリポジトリを開けば `CLAUDE.md` を自動で読みます。他のエージェントには
 `AGENTS.md` を読ませてください。あとは issue を割り当てるだけ。
 
-テンプレートには参照用の例モジュール（`src/modules/catalog/` ＋ `tests/modules/catalog/`）が
-同梱されています。形を真似る（COD-050）か、実コードを書き始めるときに両方削除してください。
-いつでも `make doctor` でテンプレートの自己チェック（frontmatter 整合性 + guard フックのテスト）が
-できます。
+このテンプレートの参照用見本モジュールは `src/modules/identity/` です。形を真似てください
+（COD-050）。いつでも `make doctor` でテンプレートの自己チェック（frontmatter 整合性 +
+guard フックのテスト）ができます。
 
 ---
 

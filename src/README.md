@@ -23,13 +23,16 @@ Dependency direction: `interface → application → domain` and
 `infrastructure → application → domain`. Never sideways into another module's
 internals — cross-module calls use the target's MODULE.md public API or events.
 
-## Worked example: `modules/catalog/`
+## Worked example
 
-[`modules/catalog/`](modules/catalog/MODULE.md) is a small reference module (Python)
-demonstrating the four layers, DDD value objects/aggregates, ports + adapters, and the
-testing conventions. **Imitate its shape** (COD-050); it is not wired into the no-op
-template Makefile. Delete it and `tests/modules/catalog/` when starting a real project.
-Run its tests with the python-uv profile, or ad hoc: `PYTHONPATH=. pytest tests/modules/catalog`.
+The reference module for this template is `modules/identity/` (Clerk webhook sync +
+authorization), landing with the SaaS foundation. **Imitate its shape** (COD-050). The
+base template's language-agnostic worked example lives upstream:
+[ai-dev-foundation `src/modules/catalog/`](https://github.com/Yukihide-Mitsuoka/ai-dev-foundation/tree/main/src/modules/catalog).
+
+This template adds one layout rule on top of ARC-001: `src/app/` (Next.js App Router) is
+a **thin routing shell** — pages and route files delegate to `modules/*/interface` and
+contain no business logic.
 
 ## MODULE.md template
 
