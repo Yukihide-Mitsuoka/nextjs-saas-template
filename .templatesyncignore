@@ -33,6 +33,8 @@ vitest.config.ts
 # improvements through reviewed PRs instead of adding a privileged PAT (ADR-0004).
 .github/workflows/**
 scripts/template-check-target.sh
+scripts/pr-size-policy.sh
+scripts/tests/pr-size-policy.test.sh
 
 docs/**
 !docs/foundation/

@@ -17,6 +17,8 @@ old one. One line per entry. AI agents append entries in the same PR as the chan
 
 | Date | ID | Decision | Link |
 |------|----|----------|------|
+| 2026-07-18 | ADR-0005 (accepted) | Repository owner approved the narrowly authenticated GR-020 exception for mechanical foundation sync PRs by merging PR #15; all other CI and human review remain mandatory | [ADR-0005](../docs/adr/0005-allow-bot-authenticated-foundation-sync-size-exceptions.md) |
+| 2026-07-18 | ADR-0005 (proposed) | Permit a GR-020 hard-limit exception only for same-repository, GitHub Actions bot-authored foundation sync PRs with branch, base, and source-commit provenance checks; all other CI and human review remain mandatory | [ADR-0005](../docs/adr/0005-allow-bot-authenticated-foundation-sync-size-exceptions.md) |
 | 2026-07-18 | ADR-0004 (accepted) | Repository owner approved target ownership for `.github/workflows/**`; legacy Template Sync remains least-privileged and workflow changes arrive through explicit reviewed PRs | [ADR-0004](../docs/adr/0004-keep-workflows-target-owned-during-template-sync.md) |
 | 2026-07-18 | ADR-0004 (proposed) | Keep `.github/workflows/**` target-owned so legacy Template Sync remains least-privileged and cannot fail while pushing executable workflow changes | [ADR-0004](../docs/adr/0004-keep-workflows-target-owned-during-template-sync.md) |
 | 2026-07-03 | LOG-0007 | Markdown formatting MUST be frontmatter-aware: mdformat pinned via pre-commit with `mdformat-frontmatter` + `mdformat-gfm`, config in `.mdformat.toml` (`wrap=keep`, `number=true`). A naive run once collapsed all YAML frontmatter into headings — never use a formatter without these plugins | [.mdformat.toml](../.mdformat.toml) |
