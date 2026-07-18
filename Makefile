@@ -66,4 +66,5 @@ clean: ## Remove build artifacts and caches (workspace only — GR-031)
 
 doctor: ## Foundation self-check: metadata invariants + guard-hook tests
 	@bash scripts/template-check.sh
+	@bash scripts/template-check-target.sh
 	@bash .claude/hooks/tests/guard-bash.test.sh

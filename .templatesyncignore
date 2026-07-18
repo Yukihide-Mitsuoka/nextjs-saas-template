@@ -25,10 +25,14 @@ eslint.config.mjs
 vitest.config.ts
 .prettierrc.json
 .prettierignore
+# The foundation carries only language-neutral ignores. Keep stack-specific build output
+# exclusions in this repository (ADR-0004).
+.gitignore
 # GitHub's job-scoped GITHUB_TOKEN cannot push workflow-file changes without the separate
 # Workflows repository permission. Keep executable workflows target-owned and port parent
 # improvements through reviewed PRs instead of adding a privileged PAT (ADR-0004).
 .github/workflows/**
+scripts/template-check-target.sh
 
 docs/**
 !docs/foundation/
