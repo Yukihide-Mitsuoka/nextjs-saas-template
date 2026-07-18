@@ -11,9 +11,13 @@ class TemplateSyncWorkflowTest(unittest.TestCase):
         workflow = WORKFLOW.read_text(encoding="utf-8")
 
         self.assertIn(
+            "git ls-remote https://github.com/Yukihide-Mitsuoka/ai-dev-foundation.git",
+            workflow,
+        )
+        self.assertIn(
             'pr_body: "Foundation-source: '
             'https://github.com/Yukihide-Mitsuoka/ai-dev-foundation@'
-            '${TEMPLATE_GIT_HASH}"',
+            '${{ steps.foundation-source.outputs.sha }}"',
             workflow,
         )
 
