@@ -79,13 +79,10 @@ review upstream workflow diffs; and Template Sync no longer provides workflow dr
 detection.
 
 **Migration and rollback:** add the workflow namespace to `.templatesyncignore`, port
-the pending checkout runtime update locally, and pin the boundary with a target-owned
-regression test. The stack-specific `.gitignore` is also target-owned because replacing
-it with the language-neutral foundation file would drop Next.js build exclusions.
+the pending checkout runtime update locally, and pin the boundary with a regression test.
 Rollback removes the ignore rule only after a reviewed GitHub App or PAT design supplies
 the minimum `Workflows: write` permission and its rotation process.
 
 **Follow-ups:** update the decision log and ADR index; document manual workflow-porting
-in the ignore file; keep the downstream-only regression test separate from the
-synchronized foundation check; then rerun Template Sync and verify that it creates a PR
-without changing `.github/workflows/**`.
+in the ignore file; add a regression test; then rerun Template Sync and verify that it
+creates a PR without changing `.github/workflows/**`.
