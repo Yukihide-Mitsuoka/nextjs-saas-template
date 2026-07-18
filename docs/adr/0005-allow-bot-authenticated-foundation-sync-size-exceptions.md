@@ -1,7 +1,7 @@
 ---
 id: adr-0005
 title: Allow bot-authenticated foundation sync size exceptions
-status: proposed
+status: accepted
 updated: 2026-07-18
 ---
 
@@ -9,9 +9,9 @@ updated: 2026-07-18
 
 | Field | Value |
 |-------|-------|
-| Status | proposed |
+| Status | accepted |
 | Date | 2026-07-18 |
-| Deciders | repository owner |
+| Deciders | repository owner (approved by merging PR #15 on 2026-07-18) |
 | Author | Codex (AI agent) |
 | Supersedes / Superseded by | Refines GR-020 for authenticated foundation synchronization |
 
