@@ -29,3 +29,7 @@ vitest.config.ts
 # this repo's sync source. Port base improvements manually when a sync PR diffs here.
 .github/workflows/ci.yml
 .github/workflows/template-sync.yml
+
+docs/**
+!docs/foundation/
+!docs/foundation/**
