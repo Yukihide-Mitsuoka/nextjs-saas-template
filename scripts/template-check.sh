@@ -8,6 +8,7 @@
 #      (`---` ... `---`) — the metadata the routing/authority system depends on.
 #   2. No file carries the "collapsed frontmatter" signature a non-frontmatter-aware
 #      formatter produces (guards against the LOG-0007 regression recurring).
+#   3. Legacy Template Sync cannot modify target-owned executable workflow files.
 
 set -u
 cd "$(dirname "$0")/.." || exit 9
@@ -32,6 +33,12 @@ done < <(find .ai .skills -type f -name '*.md' 2>/dev/null | sort)
 #    the YAML keys mashed into a single heading like "## id: x title: y ...").
 if grep -rlnE '^## (id|name): .+ (title|description): ' .ai .skills docs CLAUDE.md AGENTS.md 2>/dev/null; then
   err "^ file(s) above contain collapsed YAML frontmatter — run mdformat with mdformat-frontmatter (see LOG-0007)"
+fi
+
+# 3. The default GITHUB_TOKEN cannot push workflow changes, and adding a privileged PAT
+# would violate ADR-0004's least-privilege decision. Pin the namespace-level exclusion.
+if ! grep -qxF '.github/workflows/**' .templatesyncignore; then
+  err ".templatesyncignore: missing target-owned .github/workflows/** boundary (ADR-0004)"
 fi
 
 if [ "$errors" -eq 0 ]; then
