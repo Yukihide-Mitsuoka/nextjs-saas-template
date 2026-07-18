@@ -37,5 +37,5 @@ scripts/pr-size-policy.sh
 scripts/tests/pr-size-policy.test.sh
 
 docs/**
-!docs/foundation/
-!docs/foundation/**
+:!docs/foundation/
+:!docs/foundation/**
