@@ -24,5 +24,7 @@ architectural change (definition: ARC-020 "Architectural" scope). Process:
 |---|-------|--------|------|
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | accepted | 2026-07-02 |
 | [0002](0002-ai-facing-docs-in-english.md) | AI-facing docs are written in English | accepted | 2026-07-02 |
+| [0003](0003-billing-webhook-uses-privileged-client.md) | Billing webhook uses the privileged client | accepted | 2026-07-08 |
+| [0004](0004-keep-workflows-target-owned-during-template-sync.md) | Keep workflows target-owned during Template Sync | accepted | 2026-07-18 |
 
 <!-- Append new ADRs to this table (newest last). -->

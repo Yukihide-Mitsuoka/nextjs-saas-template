@@ -24,7 +24,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: AndreasAugustin/actions-template-sync@v2
         with:
           # This repo syncs from ai-dev-foundation (its direct parent). Downstream repos
