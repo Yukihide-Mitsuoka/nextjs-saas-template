@@ -29,6 +29,8 @@ vitest.config.ts
 # Workflows repository permission. Keep executable workflows target-owned and port parent
 # improvements through reviewed PRs instead of adding a privileged PAT (ADR-0004).
 .github/workflows/**
+scripts/pr-size-policy.sh
+scripts/tests/pr-size-policy.test.sh
 
 docs/**
 !docs/foundation/
