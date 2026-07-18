@@ -32,5 +32,6 @@ jobs:
           source_repo_path: "Yukihide-Mitsuoka/ai-dev-foundation"
           upstream_branch: main
           pr_title: "build: sync with ai-dev-foundation template"
+          pr_body: "Foundation-source: https://github.com/Yukihide-Mitsuoka/ai-dev-foundation@${TEMPLATE_GIT_HASH}"
           pr_labels: "type:ci,type:dependencies"
           pr_commit_msg: "build: sync with ai-dev-foundation template"
