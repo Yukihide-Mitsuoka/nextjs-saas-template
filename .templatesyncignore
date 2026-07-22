@@ -10,8 +10,31 @@ Makefile
 .env.example
 .ai/mission.md
 .ai/decision-log.md
+.ai/architecture.md
+.ai/coding-rules.md
+.ai/guardrails.md
+.ai/review-checklist.md
+.ai/workflow.md
+.claude/hooks/guard-bash.sh
+.claude/hooks/tests/**
+.claude/settings.json
+.devcontainer/**
 .github/CODEOWNERS
+.github/governance/repository.json
+.github/inheritance/lock.json
+.github/inheritance/manifest.json
 .templatesyncignore
+.skills/architecture.skill.md
+.skills/bugfix.skill.md
+.skills/documentation.skill.md
+.skills/feature.skill.md
+.skills/refactor.skill.md
+.skills/release.skill.md
+.skills/review.skill.md
+.skills/security.skill.md
+.skills/test.skill.md
+CHANGELOG.md
+next-env.d.ts
 
 # nextjs-saas-template additions: never let the ai-dev-foundation sync touch the
 # application layer this template adds on top of the foundation.
@@ -35,6 +58,7 @@ vitest.config.ts
 scripts/template-check-target.sh
 scripts/pr-size-policy.sh
 scripts/tests/pr-size-policy.test.sh
+scripts/tests/test_template_sync_workflow.py
 
 docs/**
 :!docs/foundation/
