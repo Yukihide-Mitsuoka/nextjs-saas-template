@@ -17,6 +17,7 @@ old one. One line per entry. AI agents append entries in the same PR as the chan
 
 | Date | ID | Decision | Link |
 |------|----|----------|------|
+| 2026-07-22 | LOG-0009 | 直接親lockを `86eb924` から次のfirst-parentコミット `01eb97c`（ai-dev-foundation #57）へ進め、Rulesetのみで保護されたbranchの旧Branch Protection 404を管理権限確認時だけ「不存在」と判定する修正・回帰テスト・runbookを正確に取り込む。権限・通信の曖昧さは引き続きfail-closed `unknown` とする | [Issue #56](https://github.com/Yukihide-Mitsuoka/ai-dev-foundation/issues/56) |
 | 2026-07-22 | LOG-0008 | Apply narrow pnpm overrides for patched `sharp` and `brace-expansion` releases; do not suppress known high-severity advisories or expand this inheritance-safety PR into unrelated major dependency upgrades | [package.json](../package.json) |
 | 2026-07-18 | ADR-0005 (accepted) | Repository owner approved the narrowly authenticated GR-020 exception for mechanical foundation sync PRs by merging PR #15; all other CI and human review remain mandatory | [ADR-0005](../docs/adr/0005-allow-bot-authenticated-foundation-sync-size-exceptions.md) |
 | 2026-07-18 | ADR-0005 (proposed) | Permit a GR-020 hard-limit exception only for same-repository, GitHub Actions bot-authored foundation sync PRs with branch, base, and source-commit provenance checks; all other CI and human review remain mandatory | [ADR-0005](../docs/adr/0005-allow-bot-authenticated-foundation-sync-size-exceptions.md) |
