@@ -17,6 +17,7 @@ old one. One line per entry. AI agents append entries in the same PR as the chan
 
 | Date | ID | Decision | Link |
 |------|----|----------|------|
+| 2026-07-22 | LOG-0008 | Apply narrow pnpm overrides for patched `sharp` and `brace-expansion` releases; do not suppress known high-severity advisories or expand this inheritance-safety PR into unrelated major dependency upgrades | [package.json](../package.json) |
 | 2026-07-18 | ADR-0005 (accepted) | Repository owner approved the narrowly authenticated GR-020 exception for mechanical foundation sync PRs by merging PR #15; all other CI and human review remain mandatory | [ADR-0005](../docs/adr/0005-allow-bot-authenticated-foundation-sync-size-exceptions.md) |
 | 2026-07-18 | ADR-0005 (proposed) | Permit a GR-020 hard-limit exception only for same-repository, GitHub Actions bot-authored foundation sync PRs with branch, base, and source-commit provenance checks; all other CI and human review remain mandatory | [ADR-0005](../docs/adr/0005-allow-bot-authenticated-foundation-sync-size-exceptions.md) |
 | 2026-07-18 | ADR-0004 (accepted) | Repository owner approved target ownership for `.github/workflows/**`; legacy Template Sync remains least-privileged and workflow changes arrive through explicit reviewed PRs | [ADR-0004](../docs/adr/0004-keep-workflows-target-owned-during-template-sync.md) |
