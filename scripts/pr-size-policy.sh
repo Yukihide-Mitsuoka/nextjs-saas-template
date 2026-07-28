@@ -43,7 +43,7 @@ if [ "$PR_AUTHOR" = 'github-actions[bot]' ] \
   && [ "$HEAD_REPO" = "$TARGET_REPO" ] \
   && [[ "$HEAD_REF" =~ ^chore/template_sync_[0-9a-f]{7,40}$ ]] \
   && [ "$BASE_REF" = 'main' ] \
-  && grep -Eq '^Foundation-source: https://github\.com/Yukihide-Mitsuoka/ai-dev-foundation@[0-9a-f]{40}$' <<<"$PR_BODY"; then
+  && grep -Eq '^Direct-parent-source: https://github\.com/Yukihide-Mitsuoka/ai-dev-foundation@[0-9a-f]{40}$' <<<"$PR_BODY"; then
   is_authenticated_sync=true
 fi
 

@@ -52,8 +52,8 @@ expect_exit 1 "fork head repository" 4200 200 43 "github-actions[bot]" "fork/nex
 expect_exit 1 "wrong branch prefix" 4200 200 43 "github-actions[bot]" "$target" "$target" "feature/large-change" "main" "$valid_body"
 expect_exit 1 "wrong base branch" 4200 200 43 "github-actions[bot]" "$target" "$target" "chore/template_sync_35daa9f" "develop" "$valid_body"
 expect_exit 1 "retired provenance prefix" 4200 200 43 "github-actions[bot]" "$target" "$target" "chore/template_sync_35daa9f" "main" "Foundation-source: https://github.com/Yukihide-Mitsuoka/ai-dev-foundation@${foundation_sha}"
-expect_exit 1 "short source hash" 4200 200 43 "github-actions[bot]" "$target" "$target" "chore/template_sync_35daa9f" "main" "Foundation-source: https://github.com/Yukihide-Mitsuoka/ai-dev-foundation@35daa9f"
-expect_exit 1 "wrong source repository" 4200 200 43 "github-actions[bot]" "$target" "$target" "chore/template_sync_35daa9f" "main" "Foundation-source: https://github.com/example/other@${foundation_sha}"
+expect_exit 1 "short source hash" 4200 200 43 "github-actions[bot]" "$target" "$target" "chore/template_sync_35daa9f" "main" "Direct-parent-source: https://github.com/Yukihide-Mitsuoka/ai-dev-foundation@35daa9f"
+expect_exit 1 "wrong source repository" 4200 200 43 "github-actions[bot]" "$target" "$target" "chore/template_sync_35daa9f" "main" "Direct-parent-source: https://github.com/example/other@${foundation_sha}"
 
 # Existing limits and invalid-input handling remain independent of PR identity.
 expect_exit 0 "within hard limit" 700 100 20 "octocat" "fork/repo" "$target" "feature/change" "main" ""
