@@ -98,6 +98,14 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
+      - name: Calculate lockfile exclusions
+        id: lockfile-stats
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          gh api --paginate --slurp "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files?per_page=100" > "${RUNNER_TEMP}/pr-files.json"
+          python3 scripts/pr_size_lockfile_stats.py "${RUNNER_TEMP}/pr-files.json" >> "${GITHUB_OUTPUT}"
       - name: PR size guard (GR-020)
         # ADR-0005 permits only an authenticated, same-repository foundation sync to
         # exceed the hard limit. The script is fail-closed and covered by negative tests.
@@ -105,6 +113,9 @@ jobs:
           ADDITIONS: ${{ github.event.pull_request.additions }}
           DELETIONS: ${{ github.event.pull_request.deletions }}
           FILES: ${{ github.event.pull_request.changed_files }}
+          LOCKFILE_ADDITIONS: ${{ steps.lockfile-stats.outputs.lockfile_additions }}
+          LOCKFILE_DELETIONS: ${{ steps.lockfile-stats.outputs.lockfile_deletions }}
+          LOCKFILE_FILES: ${{ steps.lockfile-stats.outputs.lockfile_files }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
           TARGET_REPO: ${{ github.repository }}

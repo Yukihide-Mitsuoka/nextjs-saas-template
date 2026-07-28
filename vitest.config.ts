@@ -13,7 +13,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       include: ["src/**"],
-      exclude: ["src/app/**"],
+      exclude: ["src/app/**", "src/**/*.md"],
       reportsDirectory: "coverage",
     },
   },
