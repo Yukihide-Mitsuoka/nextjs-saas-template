@@ -63,6 +63,10 @@ LOCKFILE_ADDITIONS=300 \
 LOCKFILE_DELETIONS=700 \
 LOCKFILE_FILES=1 \
   expect_exit 0 "lockfile changes excluded" 315 758 3 "octocat" "$target" "$target" "fix/dependencies" "main" ""
+LOCKFILE_ADDITIONS=not-a-number \
+  expect_exit 2 "invalid lockfile exclusion" 315 758 3 "octocat" "$target" "$target" "fix/dependencies" "main" ""
+LOCKFILE_ADDITIONS=316 \
+  expect_exit 2 "lockfile exclusion exceeds aggregate" 315 758 3 "octocat" "$target" "$target" "fix/dependencies" "main" ""
 
 echo "pr-size-policy.test.sh: $pass passed, $fail failed"
 [ "$fail" -eq 0 ]
