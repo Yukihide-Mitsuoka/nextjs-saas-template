@@ -10,7 +10,11 @@ for name in ADDITIONS DELETIONS FILES PR_AUTHOR HEAD_REPO TARGET_REPO HEAD_REF B
   fi
 done
 
-for name in ADDITIONS DELETIONS FILES; do
+LOCKFILE_ADDITIONS="${LOCKFILE_ADDITIONS:-0}"
+LOCKFILE_DELETIONS="${LOCKFILE_DELETIONS:-0}"
+LOCKFILE_FILES="${LOCKFILE_FILES:-0}"
+
+for name in ADDITIONS DELETIONS FILES LOCKFILE_ADDITIONS LOCKFILE_DELETIONS LOCKFILE_FILES; do
   value="${!name}"
   case "$value" in
     ''|*[!0-9]*)
@@ -20,8 +24,18 @@ for name in ADDITIONS DELETIONS FILES; do
   esac
 done
 
-total=$((ADDITIONS + DELETIONS))
-echo "Changed lines: $total, files: $FILES"
+if [ "$LOCKFILE_ADDITIONS" -gt "$ADDITIONS" ] \
+  || [ "$LOCKFILE_DELETIONS" -gt "$DELETIONS" ] \
+  || [ "$LOCKFILE_FILES" -gt "$FILES" ]; then
+  echo "::error::Lockfile exclusions exceed aggregate PR statistics"
+  exit 2
+fi
+
+authored_additions=$((ADDITIONS - LOCKFILE_ADDITIONS))
+authored_deletions=$((DELETIONS - LOCKFILE_DELETIONS))
+authored_files=$((FILES - LOCKFILE_FILES))
+total=$((authored_additions + authored_deletions))
+echo "Changed lines excluding lockfiles: $total, files: $authored_files"
 
 is_authenticated_sync=false
 if [ "$PR_AUTHOR" = 'github-actions[bot]' ] \
@@ -33,7 +47,7 @@ if [ "$PR_AUTHOR" = 'github-actions[bot]' ] \
   is_authenticated_sync=true
 fi
 
-if [ "$total" -gt 800 ] || [ "$FILES" -gt 20 ]; then
+if [ "$total" -gt 800 ] || [ "$authored_files" -gt 20 ]; then
   if [ "$is_authenticated_sync" = true ]; then
     echo "::warning::Authenticated mechanical foundation sync exceeds the GR-020 hard limit; all other checks and human review remain required (ADR-0005)."
     exit 0
@@ -43,6 +57,6 @@ if [ "$total" -gt 800 ] || [ "$FILES" -gt 20 ]; then
   exit 1
 fi
 
-if [ "$total" -gt 400 ] || [ "$FILES" -gt 10 ]; then
+if [ "$total" -gt 400 ] || [ "$authored_files" -gt 10 ]; then
   echo "::warning::PR exceeds the GR-020 soft limit — must be justified in the description (mechanical change?)."
 fi
