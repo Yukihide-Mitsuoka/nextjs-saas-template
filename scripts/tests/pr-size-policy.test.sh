@@ -58,5 +58,11 @@ expect_exit 1 "wrong source repository" 4200 200 43 "github-actions[bot]" "$targ
 expect_exit 0 "within hard limit" 700 100 20 "octocat" "fork/repo" "$target" "feature/change" "main" ""
 expect_exit 2 "invalid numeric input" "not-a-number" 0 1 "octocat" "$target" "$target" "feature/change" "main" ""
 
+# GR-020 excludes lockfiles: only the remaining hand-authored diff is enforced.
+LOCKFILE_ADDITIONS=300 \
+LOCKFILE_DELETIONS=700 \
+LOCKFILE_FILES=1 \
+  expect_exit 0 "lockfile changes excluded" 315 758 3 "octocat" "$target" "$target" "fix/dependencies" "main" ""
+
 echo "pr-size-policy.test.sh: $pass passed, $fail failed"
 [ "$fail" -eq 0 ]
