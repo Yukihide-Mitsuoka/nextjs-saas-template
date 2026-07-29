@@ -1,5 +1,7 @@
 # nextjs-saas-template
 
+<!-- repository-readme-owner: Yukihide-Mitsuoka/nextjs-saas-template -->
+
 **Production-ready SaaS starter on the ai-dev-foundation base** — a template repository
 for B2B/B2C SaaS where AI agents are the primary developers. It layers a Next.js SaaS
 foundation (multi-tenant PostgreSQL RLS, org-scoped RBAC, Clerk auth, Stripe billing,
