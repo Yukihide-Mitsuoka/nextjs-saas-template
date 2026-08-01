@@ -17,6 +17,7 @@ old one. One line per entry. AI agents append entries in the same PR as the chan
 
 | Date | ID | Decision | Link |
 |------|----|----------|------|
+| 2026-08-01 | LOG-0010 | Implement the accepted ADR-0014 boundary by loading the inherited foundation contract before a protected nextjs-saas-template project overlay, and protect both the profile and project namespace from legacy Template Sync. This replaces the incorrect foundation repository identity introduced by sync PR #60 without changing application behavior or workflow permissions | [Issue #61](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/61) |
 | 2026-07-22 | LOG-0009 | 直接親lockを `86eb924` から次のfirst-parentコミット `01eb97c`（ai-dev-foundation #57）へ進め、Rulesetのみで保護されたbranchの旧Branch Protection 404を管理権限確認時だけ「不存在」と判定する修正・回帰テスト・runbookを正確に取り込む。権限・通信の曖昧さは引き続きfail-closed `unknown` とする | [Issue #56](https://github.com/Yukihide-Mitsuoka/ai-dev-foundation/issues/56) |
 | 2026-07-22 | LOG-0008 | Apply narrow pnpm overrides for patched `sharp` and `brace-expansion` releases; do not suppress known high-severity advisories or expand this inheritance-safety PR into unrelated major dependency upgrades | [package.json](../package.json) |
 | 2026-07-18 | ADR-0005 (accepted) | Repository owner approved the narrowly authenticated GR-020 exception for mechanical foundation sync PRs by merging PR #15; all other CI and human review remain mandatory | [ADR-0005](../docs/adr/0005-allow-bot-authenticated-foundation-sync-size-exceptions.md) |
