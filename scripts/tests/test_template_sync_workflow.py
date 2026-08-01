@@ -1,12 +1,32 @@
+import json
 import unittest
 from pathlib import Path
 
 
 REPOSITORY_ROOT = Path(__file__).parents[2]
 WORKFLOW = REPOSITORY_ROOT / ".github" / "workflows" / "template-sync.yml"
+MANIFEST = REPOSITORY_ROOT / ".github" / "inheritance" / "manifest.json"
+IGNORE = REPOSITORY_ROOT / ".templatesyncignore"
+BUGFIX_SKILL = REPOSITORY_ROOT / ".skills" / "bugfix.skill.md"
 
 
 class TemplateSyncWorkflowTest(unittest.TestCase):
+    def test_foundation_bugfix_skill_is_inherited_and_transportable(self):
+        path = ".skills/bugfix.skill.md"
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        ignored = {
+            line.strip()
+            for line in IGNORE.read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        }
+        skill = BUGFIX_SKILL.read_text(encoding="utf-8")
+
+        self.assertIn(path, manifest["inherited_paths"])
+        self.assertNotIn(path, manifest["protected_paths"])
+        self.assertNotIn(path, ignored)
+        self.assertIn("Sweep for siblings", skill)
+        self.assertIn("Sibling occurrences searched; results reported", skill)
+
     def test_pull_request_body_contains_exact_action_source_commit(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
 
