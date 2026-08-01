@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.0...v1.1.1) (2026-08-01)
+
+
+### Bug Fixes
+
+* **inheritance:** inherit foundation bugfix skill ([#64](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/64)) ([a712ad7](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/a712ad7a560a201bb894b28036fa270486b21464))
+
 ## [1.1.0](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.0.0...v1.1.0) (2026-07-28)
 
 
