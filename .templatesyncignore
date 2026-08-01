@@ -9,6 +9,7 @@ README.md
 Makefile
 .env.example
 .ai/mission.md
+.ai/project/**
 .ai/decision-log.md
 .ai/architecture.md
 .ai/coding-rules.md
@@ -23,6 +24,7 @@ Makefile
 .github/governance/repository.json
 .github/inheritance/lock.json
 .github/inheritance/manifest.json
+.github/inheritance/agent-profile.json
 .templatesyncignore
 .skills/architecture.skill.md
 .skills/bugfix.skill.md

@@ -1,14 +1,22 @@
 ---
-id: ai-dev-foundation-agent-overlay
-title: Foundation Repository Facts
+id: nextjs-saas-template-agent-overlay
+title: Next.js SaaS Template Agent Overlay
 authority: 3
 read_when: [agent-entry]
 ---
 
-# AI Development Foundation Repository Facts
+# Next.js SaaS Template Agent Overlay
 
-- Repository: `Yukihide-Mitsuoka/ai-dev-foundation`.
-- Role: reusable, stack-agnostic AI development foundation template.
-- Contents: policies, docs, profiles, validators, and reviewed automation.
-- Application stack: none; instantiated descendants supply their own protected stack
-  and product facts.
+This protected project layer contains repository identity and stack facts only. The
+explicit agent profile loads it after the inherited foundation contract.
+
+- Repository: `Yukihide-Mitsuoka/nextjs-saas-template`.
+- Role: reusable SaaS application template for Next.js services.
+- Stack: Next.js App Router, TypeScript, Prisma with PostgreSQL row-level security,
+  Clerk authentication, and Stripe billing.
+- Architecture: each SaaS feature is a bounded context under `src/modules/`; `src/app/`
+  remains a thin routing layer.
+- Deployment target: Google Cloud Run through the reviewed `gcp-cicd-workflows` release
+  line.
+- Execution model: database migrations, cloud deployments, and external-service
+  configuration are separate authenticated operations.
