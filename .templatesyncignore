@@ -13,7 +13,6 @@ Makefile
 .ai/decision-log.md
 .ai/architecture.md
 .ai/coding-rules.md
-.ai/guardrails.md
 .ai/review-checklist.md
 .ai/workflow.md
 .claude/hooks/guard-bash.sh
