@@ -39,6 +39,7 @@
     "SECURITY.md",
     "docs/foundation/",
     "renovate.json",
+    "scripts/actions/",
     "scripts/github_governance.py",
     "scripts/context_budget.py",
     "scripts/readme_ownership.py",
