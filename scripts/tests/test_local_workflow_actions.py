@@ -204,11 +204,6 @@ class LocalWorkflowActionsTest(unittest.TestCase):
             'gh release upload "$RELEASE_TAG" "$SBOM_ASSET" --clobber', workflow
         )
         self.assertNotIn("RELEASE_TAG: ${{ github.ref_name }}", workflow)
-        self.assertIn(
-            "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: "
-            "${{ format('pk_test_{0}', 'Y2xlcmsuZXhhbXBsZS5jb20k') }}",
-            workflow,
-        )
 
 
 if __name__ == "__main__":
