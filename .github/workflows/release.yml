@@ -41,6 +41,9 @@ jobs:
         with:
           ref: ${{ needs.release-please.outputs.tag_name }}
       - uses: ./scripts/actions/release-gates
+        env:
+          # Public test placeholder used only to let static prerender validate the app.
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ format('pk_test_{0}', 'Y2xlcmsuZXhhbXBsZS5jb20k') }}
       # anchore/sbom-action only auto-detects a Release on release or tag-push events.
       # This workflow is a main-push workflow, so checkout(ref: tag) alone is not enough.
       - name: Attach generated SBOM to GitHub Release
