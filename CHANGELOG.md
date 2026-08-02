@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.1...v1.1.2) (2026-08-02)
+
+
+### Bug Fixes
+
+* **ci:** call Scorecard directly ([#75](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/75)) ([d09fdb8](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/d09fdb8221a4df93d87a9e30263526da79adf8c9)), closes [#74](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/74)
+* **release:** attach SBOM to created release ([#81](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/81)) ([f685143](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/f6851438717d85c2a6da205a387cb5414b2a2ef9)), closes [#80](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/80)
+
 ## [1.1.1](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.0...v1.1.1) (2026-08-01)
 
 
