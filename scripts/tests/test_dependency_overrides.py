@@ -34,7 +34,7 @@ class DependencyOverridesTest(unittest.TestCase):
         self.assertIsNotNone(version)
         self.assertGreaterEqual(
             tuple(int(part) for part in version.split(".")),
-            (8, 5, 10),
+            (8, 5, 23),
         )
 
 
