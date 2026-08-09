@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.5](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.4...v1.1.5) (2026-08-09)
+
+
+### Bug Fixes
+
+* **security:** update PostCSS to 8.5.23 ([#95](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/95)) ([98c5a08](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/98c5a08742810e1b5bb1a0dad3c024cbf5552630))
+* **sync:** prevent duplicate template reviews ([#92](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/92)) ([564b52e](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/564b52e8d3271ba9c3f0a19bd11db166050445ee))
+
 ## [1.1.4](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.3...v1.1.4) (2026-08-09)
 
 
