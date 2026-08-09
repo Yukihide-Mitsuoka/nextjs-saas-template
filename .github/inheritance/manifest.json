@@ -110,6 +110,8 @@
     "scripts/pr-size-policy.sh",
     "scripts/template-check-target.sh",
     "scripts/tests/pr-size-policy.test.sh",
+    "scripts/tests/test_codeql_workflow.py",
+    "scripts/tests/test_dependency_overrides.py",
     "scripts/tests/test_template_sync_workflow.py",
     "src/",
     "tests/",
