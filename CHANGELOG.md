@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.4](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.3...v1.1.4) (2026-08-09)
+
+
+### Bug Fixes
+
+* **ci:** upgrade CodeQL Action to v4 ([#87](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/87)) ([5c39135](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/5c3913570f4789fdc319104abe6ac1347f52e32b))
+* **inheritance:** classify sync portability test ([#90](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/90)) ([6abac69](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/6abac69ef2f1aa9bc3704ad30f4b915696c298bf))
+
 ## [1.1.3](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.2...v1.1.3) (2026-08-02)
 
 
