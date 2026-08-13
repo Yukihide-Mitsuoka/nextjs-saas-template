@@ -12,6 +12,9 @@ for protected_path in '.github/workflows/**' '.gitignore' 'scripts/template-chec
     || err ".templatesyncignore: missing target-owned boundary: $protected_path (ADR-0004)"
 done
 
+python3 -m unittest discover -s tests/governance -p 'test_*.py' \
+  || err "Next.js family contract regression tests failed"
+
 if [ "$errors" -eq 0 ]; then
   echo "doctor: OK — nextjs-saas-template target invariants hold"
 else
