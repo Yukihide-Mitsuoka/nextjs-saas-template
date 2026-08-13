@@ -29,6 +29,25 @@ EXPECTED_INPUTS = [
 
 
 class InheritanceExportTest(unittest.TestCase):
+    def test_synchronized_foundation_regressions_have_explicit_ownership(self):
+        manifest = json.loads(
+            (ROOT / ".github/inheritance/manifest.json").read_text(encoding="utf-8")
+        )
+        ignored = {
+            line.strip()
+            for line in (ROOT / ".templatesyncignore").read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        }
+
+        for path in (
+            "scripts/tests/test_expand_phase_compatibility.py",
+            "scripts/tests/test_workflow_dependency_pins.py",
+        ):
+            with self.subTest(path=path):
+                self.assertIn(path, manifest["inherited_paths"])
+                self.assertNotIn(path, manifest["protected_paths"])
+                self.assertNotIn(path, ignored)
+
     def test_template_overlay_is_owned_and_exports_only_family_rules(self):
         manifest = json.loads(
             (ROOT / ".github/inheritance/manifest.json").read_text(encoding="utf-8")
