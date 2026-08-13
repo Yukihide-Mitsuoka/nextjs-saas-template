@@ -10,6 +10,7 @@ Makefile
 .env.example
 .ai/mission.md
 .ai/project/**
+.ai/contracts/templates/yukihide-mitsuoka/nextjs-saas-template/**
 .ai/decision-log.md
 .ai/architecture.md
 .ai/coding-rules.md
