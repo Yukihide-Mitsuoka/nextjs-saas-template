@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.5...v1.2.0) (2026-08-14)
+
+
+### Features
+
+* publish Next.js family inheritance contract ([#97](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/97)) ([05bada1](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/05bada1696f840d74f8ac8d68b92b5472f806dae))
+
+
+### Bug Fixes
+
+* own Foundation regressions and upgrade workflow actions ([#101](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/101)) ([6884b0e](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/6884b0e4aa62cc7db155eef4b89c461034a55d7b)), closes [#100](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/100)
+
 ## [1.1.5](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.4...v1.1.5) (2026-08-09)
 
 
