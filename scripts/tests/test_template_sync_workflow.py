@@ -27,6 +27,24 @@ class TemplateSyncWorkflowTest(unittest.TestCase):
         self.assertIn("Sweep for siblings", skill)
         self.assertIn("Sibling occurrences searched; results reported", skill)
 
+    def test_new_foundation_test_support_is_inherited(self):
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        ignored = {
+            line.strip()
+            for line in IGNORE.read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        }
+
+        for path in (
+            "scripts/run-foundation-tests.sh",
+            "scripts/tests/test_foundation_test_suite_selection.py",
+            "scripts/tests/test_objective_prose_policy.py",
+            "scripts/tests/test_presentation_skill_contract.py",
+        ):
+            self.assertIn(path, manifest["inherited_paths"])
+            self.assertNotIn(path, manifest["protected_paths"])
+            self.assertNotIn(path, ignored)
+
     def test_pull_request_body_contains_exact_action_source_commit(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
 
