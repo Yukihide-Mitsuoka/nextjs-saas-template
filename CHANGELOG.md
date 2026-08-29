@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.2.0...v1.2.1) (2026-08-29)
+
+
+### Bug Fixes
+
+* **ci:** skip public-only security jobs in private repos ([#106](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/106)) ([90332c8](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/90332c8a41e83fd5562826ba1015428e23009a34))
+
 ## [1.2.0](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.1.5...v1.2.0) (2026-08-14)
 
 
