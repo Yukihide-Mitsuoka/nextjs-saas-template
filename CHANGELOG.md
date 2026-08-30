@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.2.1...v1.2.2) (2026-08-30)
+
+
+### Bug Fixes
+
+* **inheritance:** declare private sync auth ownership ([#111](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/111)) ([72cace5](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/72cace575157a29325fe6d8eda5e261fef93fdba))
+
 ## [1.2.1](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.2.0...v1.2.1) (2026-08-29)
 
 
