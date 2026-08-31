@@ -32,8 +32,6 @@
     ".skills/bugfix.skill.md",
     ".skills/requirements.skill.md",
     "AGENTS.md",
-    "CONTRIBUTING.md",
-    "LICENSE",
     "SECURITY.md",
     "docs/foundation/",
     "renovate.json",
