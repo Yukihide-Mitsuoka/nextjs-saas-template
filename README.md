@@ -59,7 +59,3 @@ migrations and the Clerk webhook sync (which must write across tenant boundaries
    [gcp-cicd-workflows setup](https://github.com/Yukihide-Mitsuoka/gcp-cicd-workflows#setup-once-per-consumer-repo)),
    copy its example callers.
 7. Point your agent at the repo and assign it an issue.
-
-## License
-
-MIT — see [LICENSE](LICENSE).
