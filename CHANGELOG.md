@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.3](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.2.2...v1.2.3) (2026-09-03)
+
+
+### Bug Fixes
+
+* **ci:** preserve contents access in workflow jobs ([#115](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/115)) ([f852d37](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/f852d372de7eaa8c82d087d2b502b574dbff8e14))
+* **inheritance:** PRサイズ検査の所有境界を明確化する ([#118](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/118)) ([d5b7ffa](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/d5b7ffab3eff342135c03c5d83f31bb02bb52fbd))
+
 ## [1.2.2](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.2.1...v1.2.2) (2026-08-30)
 
 
