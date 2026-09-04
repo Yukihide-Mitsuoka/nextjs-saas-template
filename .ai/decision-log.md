@@ -17,6 +17,7 @@ old one. One line per entry. AI agents append entries in the same PR as the chan
 
 | Date | ID | Decision | Link |
 |------|----|----------|------|
+| 2026-09-04 | LOG-0020 | Port the protected ADR-0021 caller after its inherited policy reached `main`; resolve this inheritable template as a producer from the accepted base checkout, require English PR prose, and preserve Next.js-specific CI checks | [ADR-0021](../docs/foundation/adr/0021-scope-japanese-pull-request-prose-to-leaf-repositories.md) |
 | 2026-08-14 | LOG-0019 | Node.js 24移行を保護workflow境界へ手動移植し、5つのJavaScript ActionをFoundation承認済みmajorとcommit SHAへ更新する。欠落していたFoundation回帰テストの所有権と実体も同時に補い、今後の旧major再混入を拒否する | [Issue #100](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/100) |
 | 2026-08-14 | LOG-0018 | 受理済み基盤ADR-0014の未完了実装として、Next.js SaaS familyが直接子へ渡すstack、tenant isolation、Clerk/Stripe境界、検証・実行境界をowner-qualified overlayとbootstrap exportで公開する。子のproject identity、workflow、application、Prisma schema、README、project docsは保護し、テンプレート自身のproject overlayは継承しない | [Foundation ADR-0014](../docs/foundation/adr/0014-separate-inherited-agent-contracts-from-project-overlays.md) |
 | 2026-08-02 | LOG-0017 | 直接親lockを`ef70594`から最終first-parent commit `74d9255`（ai-dev-foundation release 1.5.2）へ進め、PR #72/#73の継承内容とPR #75の保護workflowに対応する受理来歴を完成させる。子固有CHANGELOG、アプリケーション、GitHub設定は変更しない | [Issue #77](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/77) |
