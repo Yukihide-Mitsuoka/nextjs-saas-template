@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.4](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.2.3...v1.2.4) (2026-09-23)
+
+
+### Bug Fixes
+
+* **inheritance:** own PR language policy files ([#122](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/122)) ([aa75b86](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/aa75b8671ed86b254966d6c3237dd75e50b01186))
+* **inheritance:** register missing Foundation test ([#129](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/issues/129)) ([73d79fd](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/commit/73d79fdd77742c5b50dc31765387df129c6cc91e))
+
 ## [1.2.3](https://github.com/Yukihide-Mitsuoka/nextjs-saas-template/compare/v1.2.2...v1.2.3) (2026-09-03)
 
 
