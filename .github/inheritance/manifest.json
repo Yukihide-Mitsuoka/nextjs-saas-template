@@ -112,6 +112,7 @@
     "CHANGELOG.md",
     "CLAUDE.md",
     "Makefile",
+    "Taskfile.yml",
     "README.md",
     "docs/adr/",
     "docs/architecture/",

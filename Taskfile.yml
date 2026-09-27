@@ -1,0 +1,117 @@
+# ADR-0024 expansion: mirror the Makefile while protected callers still use make.
+version: '3'
+silent: true
+
+tasks:
+  default:
+    cmds:
+      - task: help
+
+  help:
+    desc: List available tasks
+    cmds:
+      - task --list-all
+
+  setup:
+    desc: Install frozen dependencies, generate Prisma client, and install local hooks
+    cmds:
+      - corepack enable
+      - pnpm install --frozen-lockfile
+      - pnpm exec prisma generate
+      - >-
+        if command -v pre-commit >/dev/null 2>&1; then
+          pre-commit install --hook-type pre-commit --hook-type pre-push;
+        else
+          echo "pre-commit not installed — local hooks skipped (CI runs the same gates)";
+        fi
+
+  format:
+    desc: Format all files or FILE=<path>
+    env:
+      FILE: '{{.FILE}}'
+    cmds:
+      - >-
+        if [ -n "${FILE:-}" ]; then
+          pnpm exec prettier --write "$FILE";
+        else
+          pnpm exec prettier --write .;
+        fi
+
+  lint:
+    desc: Check Prettier, ESLint, and TypeScript without fixes
+    cmds:
+      - pnpm exec prettier --check .
+      - pnpm exec eslint . --max-warnings 0
+      - pnpm exec tsc --noEmit
+
+  test:
+    desc: Run the complete Vitest suite
+    cmds:
+      - pnpm exec vitest run
+
+  test-unit:
+    desc: Run the fast suite without integration or e2e tests
+    cmds:
+      - pnpm exec vitest run --exclude '**/integration/**' --exclude '**/e2e/**'
+
+  test-integration:
+    desc: Run integration and e2e tests when present
+    cmds:
+      - pnpm exec vitest run --dir tests --exclude '**/unit/**' --passWithNoTests
+
+  coverage:
+    desc: Run tests with coverage
+    cmds:
+      - pnpm exec vitest run --coverage
+
+  build:
+    desc: Build the standalone Next.js artifact
+    cmds:
+      - pnpm run build
+
+  run:
+    desc: Start the local development server
+    cmds:
+      - pnpm run dev
+
+  security-scan:
+    desc: Scan secrets and dependencies
+    cmds:
+      - >-
+        if command -v gitleaks >/dev/null 2>&1; then
+          gitleaks detect --no-banner;
+        else
+          echo "gitleaks not installed — CI still enforces SEC-002";
+        fi
+      - >-
+        if command -v trivy >/dev/null 2>&1; then
+          trivy fs --scanners vuln,secret --exit-code 1 .;
+        else
+          echo "trivy not installed — CI still enforces SEC-030";
+        fi
+      - pnpm audit --audit-level high
+
+  sbom:
+    desc: Generate SPDX and CycloneDX SBOMs into dist/
+    cmds:
+      - mkdir -p dist
+      - >-
+        if command -v syft >/dev/null 2>&1; then
+          syft . -o spdx-json=dist/sbom.spdx.json -o cyclonedx-json=dist/sbom.cdx.json &&
+          echo "SBOM written to dist/";
+        else
+          echo "syft not installed — release workflow generates the authoritative SBOM";
+        fi
+
+  clean:
+    desc: Remove build artifacts and caches inside the workspace
+    cmds:
+      - rm -rf dist .next coverage .eslintcache node_modules/.cache
+
+  doctor:
+    desc: Foundation and child template checks
+    cmds:
+      - bash scripts/template-check.sh
+      - bash scripts/template-check-target.sh
+      - bash scripts/tests/pr-size-policy.test.sh
+      - bash .claude/hooks/tests/guard-bash.test.sh
