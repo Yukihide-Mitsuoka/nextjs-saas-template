@@ -59,3 +59,9 @@ migrations and the Clerk webhook sync (which must write across tenant boundaries
    [gcp-cicd-workflows setup](https://github.com/Yukihide-Mitsuoka/gcp-cicd-workflows#setup-once-per-consumer-repo)),
    copy its example callers.
 7. Point your agent at the repo and assign it an issue.
+
+During the [Foundation Task migration](https://github.com/Yukihide-Mitsuoka/ai-dev-foundation/pull/237),
+[`Taskfile.yml`](Taskfile.yml) mirrors the current commands for local verification.
+Install Task from its [official instructions](https://taskfile.dev/docs/installation)
+before using `task test` or `task doctor`; CI and hooks remain on `make` until their
+protected callers are ported through a reviewed PR.
