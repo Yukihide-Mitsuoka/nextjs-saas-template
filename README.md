@@ -63,5 +63,5 @@ migrations and the Clerk webhook sync (which must write across tenant boundaries
 During the [Foundation Task migration](https://github.com/Yukihide-Mitsuoka/ai-dev-foundation/pull/237),
 [`Taskfile.yml`](Taskfile.yml) mirrors the current commands for local verification.
 Install Task from its [official instructions](https://taskfile.dev/docs/installation)
-before using `task test` or `task doctor`; CI and hooks remain on `make` until their
-protected callers are ported through a reviewed PR.
+before using `task test` or `task doctor`. CI now uses the pinned Task setup action;
+local agent instructions and hooks continue to use `make` until their reviewed cutover.
