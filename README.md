@@ -54,14 +54,12 @@ migrations and the Clerk webhook sync (which must write across tenant boundaries
 3. **Replace placeholders**: `grep -rn "{{" . --exclude-dir=.git --exclude-dir=node_modules`.
 4. **Configure services**: Clerk app + webhook endpoint, Stripe account, Cloud SQL
    instance; fill `.env` from [.env.example](.env.example).
-5. **Install gates**: `make setup`; verify with `make doctor && make lint && make test`.
+5. **Install Task** from its [official instructions](https://taskfile.dev/docs/installation), then run `task setup`; verify with `task doctor && task lint && task test`.
 6. **Wire deploy**: provision `github-oidc` (see
    [gcp-cicd-workflows setup](https://github.com/Yukihide-Mitsuoka/gcp-cicd-workflows#setup-once-per-consumer-repo)),
    copy its example callers.
 7. Point your agent at the repo and assign it an issue.
 
-During the [Foundation Task migration](https://github.com/Yukihide-Mitsuoka/ai-dev-foundation/pull/237),
-[`Taskfile.yml`](Taskfile.yml) mirrors the current commands for local verification.
-Install Task from its [official instructions](https://taskfile.dev/docs/installation)
-before using `task test` or `task doctor`. CI now uses the pinned Task setup action;
-local agent instructions and hooks continue to use `make` until their reviewed cutover.
+[`Taskfile.yml`](Taskfile.yml) is the canonical command implementation; CI uses a
+pinned Task setup action. During the [Foundation Task migration](https://github.com/Yukihide-Mitsuoka/ai-dev-foundation/pull/237),
+`make` only forwards legacy calls and does not contain separate recipes.
