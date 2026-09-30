@@ -58,7 +58,7 @@ task security-scan   task sbom   task clean   task doctor
 The full binding target contract (semantics of each) is
 [`.ai/contracts/foundation/task-targets.md`](.ai/contracts/foundation/task-targets.md).
 
-Implementations live in `Taskfile.yml`; `Makefile` only forwards legacy calls.
+Implementations live exclusively in `Taskfile.yml`; no Make compatibility entry remains.
 
 ## 12. Claude Code integration
 

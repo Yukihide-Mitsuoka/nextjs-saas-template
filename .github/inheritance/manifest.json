@@ -39,7 +39,6 @@
     "renovate.json",
     "scripts/actions/",
     "scripts/github_governance.py",
-    "scripts/makefile_profile.py",
     "scripts/taskfile_profile.py",
     "scripts/pr_language_policy.py",
     "scripts/pr_repository_role.py",
@@ -68,7 +67,6 @@
     "scripts/tests/test_template_inheritance_plan.py",
     "scripts/tests/test_template_sync_auth.py",
     "scripts/tests/test_local_workflow_actions.py",
-    "scripts/tests/test_makefile_profile.py",
     "scripts/tests/test_post_edit_quality_hook.py",
     "scripts/tests/test_taskfile_profile.py",
     "scripts/tests/test_objective_prose_policy.py",
@@ -79,7 +77,8 @@
     "scripts/tests/test_template_sync_ignore.py",
     "scripts/tests/test_task_ci.py",
     "scripts/tests/test_template_sync_ignore_portability.py",
-    "scripts/tests/test_workflow_dependency_pins.py"
+    "scripts/tests/test_workflow_dependency_pins.py",
+    "scripts/tests/test_parent_selection_guide.py"
   ],
   "protected_paths": [
     ".ai/contracts/templates/yukihide-mitsuoka/nextjs-saas-template/",
@@ -115,7 +114,6 @@
     ".templatesyncignore",
     "CHANGELOG.md",
     "CLAUDE.md",
-    "Makefile",
     "Taskfile.yml",
     "README.md",
     "docs/adr/",
