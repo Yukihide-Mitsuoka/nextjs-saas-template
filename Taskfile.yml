@@ -1,4 +1,4 @@
-# ADR-0024 expansion: mirror the Makefile while protected callers still use make.
+# Canonical Next.js task implementation (ADR-0024); Makefile only forwards here.
 version: '3'
 silent: true
 
