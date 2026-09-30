@@ -38,7 +38,7 @@ describe("temporary Make compatibility", () => {
       const fakeTask = join(directory, "task");
       writeFileSync(fakeTask, '#!/bin/sh\nprintf "%s\\n" "$@" > "$CAPTURE_FILE"\n');
       chmodSync(fakeTask, 0o755);
-      const filename = "file ' quoted.ts";
+      const filename = 'file "quoted" `printf BAD`.ts';
       const result = spawnSync("make", ["--no-print-directory", "format", `FILE=${filename}`], {
         encoding: "utf8",
         env: { ...process.env, PATH: `${directory}:${process.env.PATH}`, CAPTURE_FILE: capture },
