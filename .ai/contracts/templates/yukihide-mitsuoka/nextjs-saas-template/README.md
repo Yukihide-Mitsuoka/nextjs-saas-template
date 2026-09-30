@@ -15,7 +15,7 @@ child. Repository identity, project overlays, workflow callers, root README, pro
 documentation, application code, database schema, and stack configuration remain
 protected child-owned paths after bootstrap.
 
-Change the export only through a reviewed contract PR. Validate it with `make doctor`.
+Change the export only through a reviewed contract PR. Validate it with `task doctor`.
 Creating or enabling a remote repository, provisioning external services, applying
 GitHub governance, and deploying the application remain separate authenticated
 operations.

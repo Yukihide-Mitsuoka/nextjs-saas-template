@@ -20,7 +20,7 @@ repository's protected project overlay.
 - Authentication and billing: Clerk and Stripe integrations remain adapters around
   application-owned authorization and billing policies; webhook handling must verify
   signatures and remain idempotent.
-- Verification: use the descendant repository's canonical `make` targets for formatting,
+- Verification: use the descendant repository's canonical `task` commands for formatting,
   type checking, tests, coverage, build, and security checks.
 - Execution boundary: database migration, external-service configuration, and cloud
   deployment are separate authenticated operations requiring explicit authorization.
