@@ -27,7 +27,7 @@ describe("native Task entry", () => {
   });
 
   it("lists every canonical task without executing it", () => {
-    const result = spawnSync("task", ["--list-all"], { encoding: "utf8" });
+    const result = spawnSync("task", ["--color=false", "--list-all"], { encoding: "utf8" });
     expect(result.status, result.stderr).toBe(0);
     for (const task of [
       "help",
