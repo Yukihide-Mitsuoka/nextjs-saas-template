@@ -22,6 +22,15 @@ const targets = [
 ];
 
 describe("temporary Make compatibility", () => {
+  it("installs pinned Task before the Dev Container doctor", () => {
+    const config = JSON.parse(
+      readFileSync(".devcontainer/devcontainer.json", "utf8").replace(/^\s*\/\/.*$/gm, ""),
+    );
+    expect(config.postCreateCommand).toBe(
+      "npm install -g @anthropic-ai/claude-code @go-task/cli@3.53.1 && task doctor",
+    );
+  });
+
   it.each(targets)("%s has one Task command and no independent implementation", (target) => {
     const result = spawnSync("make", ["--no-print-directory", "-n", target], {
       encoding: "utf8",
